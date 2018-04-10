@@ -21,7 +21,21 @@ Make sure to commit early, commit often.  Also, if you feel like it, feel free t
 
 More information on markdown (md) which is what this readme is written on here: [md cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
 
-## Control Points File
+## Compilation and Running
+To compile and run the fortran bezier surface code, type:
+```
+cd 484FinalProj
+make
+./main_exe
+```
+Then, open `main.m` on Matlab graph the surface.
+
+## Description of All Files
+
+### main.f90 and bezier.f90
+`main.f90` calls `bezier.f90` (a module) to create a bezier surface provided the `controlPoints.txt` file (described below).  It will interpolate the 100x100 interior points having defined the 16 control points.  The result is written to `bezierPoints.dat` which the matlab code `main.m` can read to graph, and work with. 
+
+### Control Points File
 The control points file allows the user to write 16 control points, and the Bezier.f90 file will use a bezier surface interpolation scheme to interpolate all the points that exist between the control points.  To appropriately write a control point file, follow the following guideline:
 
 ```
@@ -32,3 +46,6 @@ The control points file allows the user to write 16 control points, and the Bezi
 ```
 
 In which each number corresponds to the line number, and its location indicates what part of the surface it toggles.
+
+### main.m
+Currently, the matlab script will open `bezierPoints.dat` and graph the surface that was interpolated using the 16 control points in `controlPoints.txt`
