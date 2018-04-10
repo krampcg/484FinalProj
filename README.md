@@ -13,9 +13,9 @@
 
 Always start your programming session by running `git pull` to avoid merge conflicts.  You want to always be working with very up to date information.
 If you run into a merge conflict:
-    * Go to the conflicted file, and there should be overlay of your edits and master's edits
-    * Clean up the changes, lots of code will be duplicated, so ensure to delete all unnecessary code
-    * Push the resolved conflict
+* Go to the conflicted file, and there should be overlay of your edits and master's edits
+* Clean up the changes, lots of code will be duplicated, so ensure to delete all unnecessary code
+* Push the resolved conflict
 
 Make sure to commit early, commit often.  Also, if you feel like it, feel free to `branch` your repo and work on a separate branch until you are confident that you're code is correct.
 
