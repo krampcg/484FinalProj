@@ -38,9 +38,9 @@ end subroutine evalBezier
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !! Bezier Curve
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-subroutine evalCurve(P, t, spacePoints, outPt)
+subroutine evalCurve(P, t, outPt)
     real(kind=kind(0.0d0)), allocatable, dimension(:) :: P
-    integer :: i, j, spacePoints
+    integer :: i, j
     real(kind=kind(0.0d0)) :: t, outPt
     outPt = (1-t)**3*P(1) + &
             3*t*(1-t)**2*P(2) + &
@@ -66,11 +66,11 @@ subroutine evalSurface(controlPoints, u, v, i, j, Z, spacePoints)
         P(2) = controlPoints(k * 4 + 2)
         P(3) = controlPoints(k * 4 + 3)
         P(4) = controlPoints(k * 4 + 4)
-        call evalCurve(P, u, spacePoints, outPt)
+        call evalCurve(P, u, outPt)
         Pu(k+1) = outPt
     end do
 
-    call evalCurve(Pu, v, spacePoints, outPt)
+    call evalCurve(Pu, v, outPt)
     Z(i, j) = outPt
 
 end subroutine evalSurface
