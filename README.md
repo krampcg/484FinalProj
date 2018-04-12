@@ -21,6 +21,25 @@ Make sure to commit early, commit often.  Also, if you feel like it, feel free t
 
 More information on markdown (md) which is what this readme is written on here: [md cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
 
+## Create a subfile
+To create a subfile, say sub.tex, use the header:
+```
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+```
+and footer:
+```
+\end{document}
+```
+around your sub.tex subfile.
+
+## Adding subfiles to the report
+To add a subfile to a latex file:
+```
+\subfile{<relative or absolute path of sub.tex>}
+```
+
 ## Compilation and Running
 To compile and run the fortran bezier surface code, type:
 ```
