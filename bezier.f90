@@ -40,7 +40,6 @@ end subroutine evalBezier
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 subroutine evalCurve(P, t, outPt)
     real(kind=kind(0.0d0)), allocatable, dimension(:) :: P
-    integer :: i, j
     real(kind=kind(0.0d0)) :: t, outPt
     outPt = (1-t)**3*P(1) + &
             3*t*(1-t)**2*P(2) + &
@@ -100,6 +99,27 @@ subroutine preCalcGrad(Z, spacePoints, grad)
     grad = 1/grad
 
 end subroutine preCalcGrad
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Precomputes derivatives of a 2D seafloor
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+subroutine get2DDerivs(bezCurve, derivs, spacePoints)
+    real(kind=kind(0.0d0)), allocatable, dimension(:) :: bezCurve, derivs
+    integer :: i, spacePoints
+    real :: t
+    allocate(derivs(0:spacePoints))
+
+    do i = 0, spacePoints
+        t = real(i)/real(spacePoints)
+        derivs(i) = -3*(t-1)**2*bezCurve(1) + &
+                    3*(t-1)*(3*t-1)*bezCurve(2) + &
+                    -3*t*(3*t-2)*bezCurve(3) + &
+                    3*t**2*bezCurve(4)
+    end do
+
+    derivs(:) = derivs(:) / spacePoints
+
+end subroutine get2DDerivs
 
 end module bezier
 
