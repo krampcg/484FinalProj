@@ -1,0 +1,45 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+
+\subsection{A Test Problem}
+In this section we derive and evaluate a number of common numerical schemes for the solution of a test problem: the wave equation in two dimensions
+\begin{gather}\label{eq:wave}
+    \frac{\partial^2 u}{\partial t^2} = c^2\left(\frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} \right)\qquad\text{for }(x,y)\in\Omega,
+\end{gather}
+where $c$ denotes the propagation speed, and $\Omega$ denotes the interior of our spatial domain. For this equation, we consider homogenous Dirchlet boundary conditions
+\begin{gather}\label{eq:bcs}
+    u(t,x,y) = 0\qquad\text{for }(x,y)\in\partial\Omega,
+\end{gather}
+where $\partial\Omega$ denotes the exterior of our spatial domain. Finally, we also consider some initial condition
+\begin{gather}\label{eq:ic}
+    u(t,x,y) = f(x,y)\qquad\text{for }t=t_0.
+\end{gather}
+The equation \ref{eq:shallow}  that we plan to numerically solve is very similar to this equation, as both are linear second-order hyperbolic partial differential equations. Further, we will be using the same boundary and initial conditions. Because of this, we select the scheme that we find to be optimal in terms of both time and accuracy.
+
+\noindent However, we first state \label{eq:wave} in \noindent{conservative form}.
+
+\subsection{Explicit Schemes}
+\subsubsection{The Upwind Scheme}
+
+
+The shallow water equation~\ref{eq:shallow} is a linear, hyperbolic partial differential equation suitable for a two-dimensional discretization in space, numerically solvable via the Leapfrog scheme as presented in chapter 4 of Rezzolla's \textit{Lecture Notes on Numerical Methods for the Solution of Hyperbolic Partial Differential Equations} \cite{rezzolla}: \colorbox{red}{Statement and Scheme Later}.
+\subsection{Implicit Schemes}
+
+\subsection{Iterative Schemes}
+
+\section{Application: Fukushima Daiichi Nuclear Disaster}
+The shallow water equation requires a choice of a particular seafloor shape $H=H(x,y)$. To test the shallow-water equation, the geography of eastern Japan, specifically $\overline{\text{O}}\text{kuma}$, Fukushima will be used and a tsunami resulting from an earthquake with its epicenter at the same location as the $\text{T}\overline{\text{o}}\text{hoku}$ earthquake will be simulated. If the tsnumai's wave front reaches the Fukushima Daiichi Nuclear Power Plant, it will be demonstrated whether or not the shallow-wave equation is suitable for simulating not only tsunamis, but areas that may be at risk of flooding from tsunamis.
+
+\appendix
+\section{Derivation of The Shallow Water Equations}\label{a:deriv}
+\colorbox{red}{Later.}
+\section{The Leapfrog Method}
+\subsection{Stability}
+\colorbox{red}{Later.}
+\subsection{Consistency}
+\colorbox{red}{Later.}
+\subsection{Convergence}
+\colorbox{red}{Later.}
+
+\end{document}
