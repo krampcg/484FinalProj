@@ -52,7 +52,7 @@ Then, open `main.m` on Matlab graph the surface.
 ## Description of All Files
 
 ### main.f90 and bezier.f90
-`main.f90` calls `bezier.f90` (a module) to create a bezier surface provided the `controlPoints.txt` file (described below).  It will interpolate the 100x100 interior points having defined the 16 control points.  The result is written to `bezierPoints.dat` which the matlab code `main.m` can read to graph, and work with. 
+`main.f90` calls `bezier.f90` (a module) to create a bezier surface provided the `controlPoints.txt` file (described below).  It will interpolate the 100x100 interior points having defined the 16 control points.  The result is written to `bezierPoints.dat` which the matlab code `main.m` can read to graph, and work with. The program will also create a `2DDerivs.dat` file, which contains the derivatives at all points on the 2D line.
 
 ### Control Points File
 The control points file allows the user to write 16 control points, and the Bezier.f90 file will use a bezier surface interpolation scheme to interpolate all the points that exist between the control points.  To appropriately write a control point file, follow the following guideline:
