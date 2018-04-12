@@ -1,0 +1,57 @@
+% Report Template
+% ---------------
+% Haphazardly glued together by John Luke Lusty
+\ProvidesPackage{report_template}
+
+% Good-looking document
+\setlength{\textwidth}{6.5in}     
+\setlength{\oddsidemargin}{0in} 
+\setlength{\evensidemargin}{0in}  
+\setlength{\textheight}{8.5in}   
+\setlength{\topmargin}{0in}      
+\setlength{\headheight}{0in}      
+\setlength{\headsep}{0in}    
+\setlength{\footskip}{0.5in}    
+
+%these packages produce nice-looking math, with extra symbols and formatting
+\usepackage{graphicx}
+\usepackage{mathrsfs}
+\usepackage[table]{xcolor}
+\usepackage{epsfig}
+\usepackage{epstopdf}
+\usepackage{epsf}
+\usepackage{url}
+\usepackage[colorlinks=true,urlcolor=blue]{hyperref}
+\usepackage{amsmath,amsthm,amsfonts,amssymb}
+\usepackage{mathtools}
+\usepackage{tocloft}
+\usepackage{multirow}
+\usepackage{floatflt}
+\usepackage[wide]{sidecap}
+\usepackage{paralist}
+\linespread{0.98}
+\usepackage[framemethod=tikz]{mdframed}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+% for landscape figures
+\usepackage{rotating}
+% for booktabs
+\usepackage{booktabs}
+
+% Good Math Sizes
+\DeclareMathSizes{10}{10.5}{7}{7}
+
+\linespread{0.98}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+\theoremstyle{plain} %soley's environments for theorems
+\newtheorem{prop}{Proposition}[section]
+\newtheorem{cond}[prop]{Condition}
+\newtheorem{Def}{Definition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{ex}[prop]{Example}
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\ds}{\displaystyle}   % this command makes equations look nicer
