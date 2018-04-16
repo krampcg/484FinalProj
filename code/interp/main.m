@@ -15,6 +15,7 @@ hold off
 %% Load 1D Seafloor
 X = linspace(0, 100, 101);
 Y = dlmread('bezCurve.dat');
+Y = flip(Y);
 figure
 hold on
 set(gca, 'FontSize', 32)
