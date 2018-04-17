@@ -40,13 +40,17 @@ for i = 1:N_t
     	u_exact(i,j) = eta(x(j)-c*t(i),amp,x0,sigma);
     end
 end
+Iden(N_x,N_x) = 0;
+Iden((N_x+1)*(0:N_x-1)+1) = 1;
+v = 1;
+f = @(u) u * v;
 
 % Call FDM Schemes
 u_upwind = upwind(dt,N_t,dx,N_x,u0,c,a,b);
 u_ftcs = ftcs(dt,N_t,dx,N_x,u0,c,a,b);
 u_lf = lax_freidrichs(dt,N_t,dx,N_x,u0,c,a,b);
-u_leap = leapfrog(dt,N_t,dx,N_x,u0,c,a,b);
-u_lw = lax_wendroff(dt,N_t,dx,N_x,u0,c,a,b);
+u_leap = leapfrog(dt,N_t,dx,N_x,u0,c,a,b,f);
+u_lw = lax_wendroff(dt,N_t,dx,N_x,u0,c,a,b,f);
 
 % Get Max Nodal Error of Each Scheme
 u_err_upwind = zeros(10,1);
@@ -106,6 +110,20 @@ LT_err_input.tableColLabels = {'Timestep','E\textsub{max} Upwind',...
     'E\textsub{max} Leapfrog','E\textsub{max} Lax-Wendroff'};
 LT_err_input.dataFormat = {'%.3f', 1, '%22.18E', 5};
 LT_err = latexTable(LT_err_input);
+
+% Aminations
+%plot(u_exact(1, :));
+%f = getframe;
+%[im,map] = rgb2ind(f.cdata,256,'nodither');
+%im(1,1,1,1) = 0;
+
+%for i = 2:length(u_exact)
+%    if mod(i, 20) == 0
+%        plot(u_exact(i, :));
+%        f = getframe;
+%        im(:,:,1,i) = rgb2ind(f.cdata, map,'nodither');
+%    end
+%end
 
 % figure
 % mesh(x,t,u_exact)
