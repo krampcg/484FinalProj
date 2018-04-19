@@ -101,9 +101,9 @@ subroutine preCalcGrad(Z, spacePoints, grad)
 end subroutine preCalcGrad
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!! Precomputes derivatives of a 2D seafloor
+!! Precomputes derivatives of a 1D seafloor
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-subroutine get2DDerivs(bezCurve, derivs, spacePoints)
+subroutine get1DDerivs(bezCurve, derivs, spacePoints)
     real(kind=kind(0.0d0)), allocatable, dimension(:) :: bezCurve, derivs
     integer :: i, spacePoints
     real :: t
@@ -119,7 +119,74 @@ subroutine get2DDerivs(bezCurve, derivs, spacePoints)
 
     derivs(:) = derivs(:) / spacePoints
 
-end subroutine get2DDerivs
+end subroutine get1DDerivs
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Evaluates a derivative
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+subroutine evalDeriv(P, v, outPt, spacePoints)
+    real(kind=kind(0.0d0)), allocatable, dimension(:) :: P
+    integer :: i, spacePoints
+    real(kind=kind(0.0d0)) :: v, outPt
+
+    outPt = 3*(1-v)**2*(P(2)-P(1)) + 6*(1-v)*v*(P(3)-P(2)) + &
+        3*v**2*(P(4)-P(3))
+    outPt = outPt / real(spacePoints)
+    
+end subroutine evalDeriv
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Precomputes X derivatives of a 2D seafloor
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+subroutine get2DderivsX(derivsX, i, j, u, v, spacePoints, controlPoints)
+    real(kind=kind(0.0d0)), allocatable, dimension(:, :) :: derivsX
+    real(kind=kind(0.0d0)), allocatable, dimension(:) :: controlPoints, P, Pu
+    real(kind=kind(0.0d0)) :: h, outPt, u, v
+    integer :: i, spacePoints, k, j
+    
+    allocate(Pu(4), P(4))
+
+    do k = 0, 3
+        P(1) = controlPoints(k*4 + 1)
+        P(2) = controlPoints(k*4 + 2)
+        P(3) = controlPoints(k*4 + 3)
+        P(4) = controlPoints(k*4 + 4)
+        call evalCurve(P, v, outPt)
+        Pu(k+1) = outPt
+    end do
+
+    call evalDeriv(Pu, u, outPt, spacePoints)
+    derivsX(i, j) = outPt
+
+end subroutine get2DderivsX
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Precomputes Y derivatives of a 2D seafloor
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+subroutine get2DderivsY(derivsY, i, j, u, v, spacePoints, controlPoints)
+    real(kind=kind(0.0d0)), allocatable, dimension(:, :) :: derivsY
+    real(kind=kind(0.0d0)), allocatable, dimension(:) :: controlPoints, P, Pu
+    real(kind=kind(0.0d0)) :: h, outPt, u, v
+    integer :: i, spacePoints, k, j
+    
+    allocate(Pu(4), P(4))
+
+    do k = 0, 3
+        P(1) = controlPoints(k + 1)
+        P(2) = controlPoints(k + 5)
+        P(3) = controlPoints(k + 9)
+        P(4) = controlPoints(k + 13)
+        call evalCurve(P, u, outPt)
+        Pu(k+1) = outPt
+    end do
+
+    call evalDeriv(Pu, v, outPt, spacePoints)
+    derivsY(i, j) = outPt
+
+end subroutine get2DderivsY
 
 end module bezier
+
 
