@@ -61,6 +61,54 @@ that is: the total mass of our system does not change with respect to time. If a
 This implies by \ref{eq:massconsv} that the total mass, yet again, cannot change in time. If a system is given some mass but the exactly same amount of mass is removed from the system, the total mass does not change even though the system is not closed with respect to mass transfers along its boundary. Further, if we know the net flux, then we know exactly how the total mass $\mathbf{m}$ will change in time.
 
 \subsection{The Conservative Form of The Shallow-Water Equations}
-
-
+First we derive the conservative form of the 1D Shallow-Water Equations. The 1D form of the equation:
+\begin{gather}\label{eq:1d_sw}
+	\frac{\partial^2 u}{\partial t^2} = \frac{\partial }{\partial x}\left( gH\frac{\partial u}{\partial x}\right)
+\end{gather}
+We convert to flux-conservative form by defining two substitution variables:
+\begin{gather*}
+	\left.
+	\begin{aligned}
+		\alpha &= \frac{\partial u}{\partial x}\\
+		\gamma &= \frac{\partial u}{\partial t}
+	\end{aligned}
+	\right\}
+	\Rightarrow
+	\mathbf{U} = \begin{bmatrix}\alpha \\ \gamma \end{bmatrix}.
+\end{gather*}
+Our goal is to decouple the equation~\ref{eq:1d_sw} into a system of two equations. This is accomplished by taking derivatives of the above defined substitution variables with respect to time, and applying the law of the equivalence of mixed partials:
+\begin{gather*}
+	\begin{aligned}
+		\frac{\partial \alpha}{\partial t} &= \frac{\partial}{\partial t}\frac{\partial u}{\partial x} = \frac{\partial}{\partial x}\frac{\partial u}{\partial t}=\frac{\partial \gamma}{\partial x},\\
+		\frac{\partial \gamma}{\partial t} &=\frac{\partial}{\partial t}\frac{\partial \gamma}{\partial t}=\frac{\partial^2 u}{\partial t^2}=\frac{\partial }{\partial x}\left( gH\alpha\right).
+	\end{aligned}
+\end{gather*}
+This leaves us with the system:
+\begin{gather*}
+	\frac{\partial }{\partial t}
+	\begin{bmatrix}
+		\alpha \\ \gamma
+	\end{bmatrix}
+	+
+	\begin{bmatrix}
+		\partial_x & 0\\
+		0 & \partial_x 
+	\end{bmatrix}
+	\left(
+	\begin{bmatrix}
+		0 & 1\\
+		-gH & 0
+	\end{bmatrix}
+	\begin{bmatrix}
+		\alpha \\
+		\gamma
+	\end{bmatrix}
+	\right)
+	=
+	\mathbf{0},
+\end{gather*}
+which is written succinctly as:
+\begin{gather*}
+	\frac{\partial \mathbf{U}}{\partial t} + \nabla\cdot\mathbf{F}(\mathbf{U}) = \mathbf{0}.
+\end{gather*}
 \end{document}
