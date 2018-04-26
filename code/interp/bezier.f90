@@ -8,7 +8,7 @@ subroutine evalBezier(Z, spacePoints)
     real(kind=kind(0.0d0)), allocatable, dimension(:) :: controlPoints
     integer :: i, j, indexi, indexj, spacePoints
     real(kind=kind(0.0d0)) :: u, v, pt, h
-    allocate(Z(spacePoints, spacePoints))
+    allocate(Z(0:spacePoints, 0:spacePoints))
     allocate(controlPoints(16))
     open(13, file='controlPoints.txt')
 
@@ -17,8 +17,8 @@ subroutine evalBezier(Z, spacePoints)
         controlPoints(i) = h
     end do
 
-    do i = 1, spacePoints
-        do j = 1, spacePoints
+    do i = 0, spacePoints
+        do j = 0, spacePoints
             u = real(i) / real(spacePoints)
             v = real(j) / real(spacePoints)
             call evalSurface(controlPoints, u, v, i, j, Z, spacePoints)
@@ -28,7 +28,7 @@ subroutine evalBezier(Z, spacePoints)
     
     close(13)
     open(11, file='bezierPoints.dat')
-    do i = 1, spacePoints       
+    do i = 0, spacePoints       
         write(11, *) Z(i, :)
     end do
     close(11)

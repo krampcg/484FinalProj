@@ -1,7 +1,7 @@
 %% Load 2D Seafloor
 Z = dlmread('bezierPoints.dat');
-X = linspace(0, 100, 100);
-Y = linspace(100, 0, 100);
+X = linspace(0, 100, 101);
+Y = linspace(100, 0, 101);
 figure
 hold on
 set(gca, 'FontSize', 32)
@@ -37,6 +37,7 @@ X = linspace(0, 100, 101);
 Y = linspace(100, 0, 101);
 X = flip(X);
 Y = flip(Y);
+Z = -Z;
 figure
 hold on
 set(gca, 'FontSize', 32)
@@ -53,6 +54,7 @@ X = linspace(0, 100, 101);
 Y = linspace(100, 0, 101);
 X = flip(X);
 Y = flip(Y);
+Z = -Z;
 figure
 hold on
 set(gca, 'FontSize', 32)
@@ -82,9 +84,10 @@ Y = dlmread('1DDerivs.dat');
 Y = flip(Y);
 figure
 hold on
+set(gca, 'FontSize', 32)
 title('Derivs of Bezier Curve of the Seafloor from Epicenter to Power Plant')
 xlabel('X');
 ylabel('H prime');
-plot(X, Y);
+plot(X, Y, 'LineWidth', 3);
 hold off
 
