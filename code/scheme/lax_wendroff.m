@@ -1,6 +1,6 @@
     % 1D FTCS Scheme
 % Solves 1D Advection Equation
-function [u,u_p] = lax_wendroff(dt,N_t,dx,N_x,u0,c,a,b,f,u0_p)
+function [u,u_p] = lax_wendroff(dt,N_t,dx,N_x,u0,f,u0_p)
 
 % Solution Discretization
 % Republican Variables
@@ -12,7 +12,7 @@ u_p = zeros(N_t,N_x);
 % Initial Condition
 u_p(1,:) = u0_p;
 
-r = c*dt/dx;
+r = dt/dx;
 
 Q = (1-0.5*r)/(1+0.5*r);
 
@@ -28,23 +28,24 @@ for i=1:N_t-1
     % loop over space
     for j=2:N_x-1
         % Half Steps w/ Lax-Friedrichs
-        % u_h_p = 0.5*(u(i,j,:) + u(i,j+1,:)) - r/2*(f(u(i,j+1,:),j+1)-f(u(i,j,:),j));
-        % u_h_m = 0.5*(u(i,j,:) + u(i,j-1,:)) + r/2*(f(u(i,j-1,:),j-1)-f(u(i,j,:),j));
+        % u_h_p = 0.5*(u(i,j+1,:) + u(i,j,:)) - r/2*(f(u(i,j+1,:))-f(u(i,j,:)));
+        % u_h_m = 0.5*(u(i,j,:) + u(i,j-1,:)) - r/2*(f(u(i,j,:))-f(u(i,j-1,:)));
         % Evaluation of Flux at Half-Steps
-        % f_h_p = f(u_h_p,j);
-        % 5f_h_m = f(u_h_m,j);
+        % f_h_p = f(u_h_p);
+        % f_h_m = f(u_h_m);
         % Full Step
+        % u(i+1,j,:) = squeeze(u(i,j,:)) - r*(f_h_p-f_h_m);
+        
         % Alpha Step
-        u(i+1,j,1) = u(i,j,1) + r/2*...
+        u(i+1,j,1) = u(i,j,1) + r*...
             (0.5*(u(i,j+1,2)-u(i,j-1,2))+...
-            r*0.25*(u(i,j+1,1)-2*u(i,j,1)+u(i,j-1,1)));
+            r*0.5*(u(i,j+1,1)-2*u(i,j,1)+u(i,j-1,1)));
         % Gamma Step
-        u(i+1,j,2) = u(i,j,2) + r/2*...
+        u(i+1,j,2) = u(i,j,2) + r*...
             (0.5*(u(i,j+1,1)-u(i,j-1,1))+...
-            r*0.25*(u(i,j+1,2)-2*u(i,j,2)+u(i,j-1,2)));
+            r*0.5*(u(i,j+1,2)-2*u(i,j,2)+u(i,j-1,2)));
         % Plebian Variable
         u_p(i+1,j) = u_p(i,j) + dt*u(i,j,2);
-        % u(i+1,j,:) = squeeze(u(i,j,:)) - r*(f_h_p-f_h_m);
     end
     
     % Ingoing Sommerfield BC

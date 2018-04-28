@@ -7,7 +7,7 @@ fig = figure;
 data_plot_1 = plot(x,u_lw_p(1,:));
 title('Lax-Wendroff Scheme')
 xlabel('x')
-axis([x(1), x(end), -5, 5])
+axis([x(1), x(end), -1, 1])
 
 % Pause for 0.0001 sec
 pause(0.001);
@@ -25,7 +25,7 @@ for i=2:length(t)
     data_plot_1 = plot(x,u_lw_p(i,:));
     title('Lax-Wendroff Scheme')
     xlabel('x')
-    axis([x(1), x(end), -5, 5])
+    axis([x(1), x(end), -1, 1])
     % Pause for 0.0001 sec
     %pause(0.001);
     

@@ -1,15 +1,15 @@
 % - Numerical Parameters -
 g = 9.81;
 % Velocity
-c = 1;
+v = 1;
 % Spatial Parameters
 x0 = 0;
-xf = 4*pi;
-N_x = 1000;
+xf = 2;
+N_x = 400;
 H = -ones(N_x,1); % 1D "sea floor" profile
 % Temporal Parameters
 t0 = 0;
-tf = 5;
+tf = 3;
 N_t = 601;
 
 % Time Grid
@@ -18,25 +18,21 @@ t = linspace(t0, tf, N_t);
 dt = t(2)-t(1);
 
 % Spatial Grid
-x = linspace(0, xf, N_x);
+x = linspace(-xf, xf, N_x);
 % Spacing
 dx = x(2)-x(1);
 
 % Wave Profile
-amp = 2;
-x0 = mean(x);
+amp = 1;
 sigma = 0.1;
-% eta = @(x,amp,x0,sigma) amp*exp(-((x-x0)/sigma).^2); 
-eta = @(x,amp,x0,sigma) exp(-abs(x0-x)).*sin(x);
-% etaprime = @(x,amp,x0,sigma) -2*(x-x0).*amp/sigma^2.*exp(-((x-x0)/sigma).^2);
-etaprime = @(x,amp,x0,sigma) exp(-abs(x0-x)).*cos(x)-sin(x).*exp(-abs(x0-x));
+eta = @(x,amp,sigma) amp*exp(-(x/sigma).^2); 
+% eta = @(x,amp,x0,sigma) exp(-abs(x0-x)).*sin(x);
+etaprime = @(x,amp,sigma) -2*amp/sigma^2*x.*exp(-(x/sigma).^2);
+% etaprime = @(x,amp,x0,sigma) exp(-abs(x0-x)).*cos(x)-sin(x).*exp(-abs(x0-x));
 
 % Initial Condition
-u0_p = eta(x,amp,x0,sigma);
-u0 = [etaprime(x,amp,x0,sigma);linspace(0,0,N_x)];
-% Boundary Conditions
-a = 0;
-b = 0;
+u0_p = eta(x,amp,sigma);
+u0 = [etaprime(x,amp,sigma);linspace(0,0,N_x)];
 
 % Exact Solution
 % u_exact = zeros(N_t,N_x);
@@ -49,14 +45,17 @@ b = 0;
 % Iden(N_x,N_x) = 0;
 % Iden((N_x+1)*(0:N_x-1)+1) = 1;
 % v = 1;
-f = @(u,j) [0 -1; -g*H(j) 0]*[u(1); u(2)];
+
+% f = @(u,j) [0 -1; -g*H(j) 0]*[u(1); u(2)];
+f = @(u) [0 -v; -v 0]*[u(1); u(2)];
+
 
 % Call FDM Schemes
 % u_upwind = upwind(dt,N_t,dx,N_x,u0,c,a,b);
 % u_ftcs = ftcs(dt,N_t,dx,N_x,u0,c,a,b);
 % u_lf = lax_freidrichs(dt,N_t,dx,N_x,u0,c,a,b);
 % u_leap = leapfrog(dt,N_t,dx,N_x,u0,c,a,b,f);
-[u_lw_c,u_lw_p] = lax_wendroff(dt,N_t,dx,N_x,u0,c,a,b,f,u0_p);
+[u_lw_c,u_lw_p] = lax_wendroff(dt,N_t,dx,N_x,u0,f,u0_p);
 
 % Get Max Nodal Error of Each Scheme
 % u_err_upwind = zeros(10,1);
