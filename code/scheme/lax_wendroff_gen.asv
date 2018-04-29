@@ -1,6 +1,6 @@
     % 1D FTCS Scheme
 % Solves 1D Advection Equation
-function [u,u_p] = lax_wendroff_gen(dt,N_t,dx,N_x,u0,f,u0_p)
+function [u,u_p] = lax_wendroff(dt,N_t,dx,N_x,u0,f,u0_p)
 
 % Solution Discretization
 % Republican Variables
@@ -33,8 +33,8 @@ for i=1:N_t-1
         u_h_m = 0.5*(u(i,j,:) + u(i,j-1,:)) - ...
             reshape(r*0.5*(f(u(i,j,:))-f(u(i,j-1,:))),[1,1,2]);
         % Evaluation of Flux at Half-Steps
-        f_h_p = reshape(f(u_h_p),[1,1,2]);
-        f_h_m = reshape(f(u_h_m),[1,1,2]);
+        f_h_p = reshape(f(u_h_p),[1,1,2;
+        f_h_m = f(u_h_m);
         % Full Step
         u(i+1,j,:) = u(i,j,:) - r*(f_h_p-f_h_m);
         

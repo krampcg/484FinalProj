@@ -55,7 +55,9 @@ f = @(u) [0 -v; -v 0]*[u(1); u(2)];
 % u_ftcs = ftcs(dt,N_t,dx,N_x,u0,c,a,b);
 % u_lf = lax_freidrichs(dt,N_t,dx,N_x,u0,c,a,b);
 % u_leap = leapfrog(dt,N_t,dx,N_x,u0,c,a,b,f);
-[u_lw_c,u_lw_p] = lax_wendroff(dt,N_t,dx,N_x,u0,f,u0_p);
+
+
+[u_lw_c,u_lw_p] = lax_wendroff_gen(dt,N_t,dx,N_x,u0,f,u0_p);
 
 % Get Max Nodal Error of Each Scheme
 % u_err_upwind = zeros(10,1);
