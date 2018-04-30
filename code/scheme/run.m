@@ -1,47 +1,46 @@
 clear all
 
 % Simulation Parameters
-% Gravitational Constant - km/h^2
-g = 2.7240694444;
 % Spatial Range
 x0 = -40;
 xf = 132.5;
-% Spatial Discretization
-N_x = 5000;
-% Spatial Grid
-x = linspace(x0, xf, N_x);
-% Spacing
-dx = x(2)-x(1);
+% Gravitational Constant - km/s^2
+g = 9.80665/1000;
 % Bezier Points of Seafloor Map
 P = [-1099, -465, -130, 1];
 % Bezier Seafloor Topology
 b_z = @(x) bezier(P, x/xf);
 % Reduced Seafloor Topology
 z = @(x) b_z(x)/1000;
-% For Plotting
-z_plot = z(x);
-% Sea-Floor Topology
-% z = @(x) 0.5/xf*x - 0.5;
 % Negative Image
 H = @(x) -z(x);
 
-% Max Wave-Speed Velocity
-v_max = g*max(H(x));
+% Temporal Discretization
+t0 = 0;
+dt = 2;
+tf = 1800;
+t = t0:dt:tf;
+N_t = length(t);
 
 % Courant-Freidrichs-Lowy Condition
 CFL = 1.0;
 
-% Temporal Parameters
-dt = CFL*dx/v_max;
-t0 = 0;
-tf = 60;
-% Temporal Discretization
-t = t0:dt:tf;
-N_t = length(t);
+% Max Wave-Speed Velocity
+v_max = g*max(H(linspace(x0,xf,10000)));
+
+% Match CFL Condition for Stability
+dx = dt*v_max/CFL;
+
+% Spatial Grid
+x = x0:dx:xf;
+% Spatial Discretization
+N_x = length(x);
+% For Plotting
+z_plot = z(x);
 
 % Initial, Shallow Wave Profile
-amp = 0.023;
-sigma = 10;
+amp = 0.0046;
+sigma = 33;
 sealevel = 0;
 x_peak = 0;
 eta = @(x,amp,sigma,x_peak) amp*exp(-((x-x_peak)/sigma).^2)+sealevel; 
@@ -58,24 +57,6 @@ f = @(u,x) [0 -1; -g*H(x) 0]*[u(1); u(2)];
 
 % Call Lax-Wendroff
 [u_lw_c,u_lw_p] = lax_wendroff_gen(dt,N_t,x,dx,N_x,u0,f,u0_p,v_max);
-
-figure
-mesh(x,t,squeeze(u_lw_c(:,:,1)))
-title('Lax-Wendroff Scheme, ALPHA')
-xlabel('x')
-ylabel('t')
-
-figure
-mesh(x,t,squeeze(u_lw_c(:,:,2)))
-title('Lax-Wendroff Scheme, GAMMA')
-xlabel('x')
-ylabel('t')
-
-figure
-mesh(x,t,squeeze(u_lw_p(:,:)))
-title('Lax-Wendroff Scheme, PRIMITIVE')
-xlabel('x')
-ylabel('t')
 
 save('u_lw_p.mat','u_lw_p','x','t','z_plot');
 
