@@ -3,13 +3,13 @@
 \begin{document}
 
 \subsection{A Test Problem}
-In this section we derive and evaluate a number of common numerical schemes for the solution of a test problem: the wave equation in two dimensions
+In this section we derive and evaluate a number of common numerical schemes for the solution of a test problem: the wave equation in one dimensions
 \begin{gather}\label{eq:wave}
-    \frac{\partial^2 u}{\partial t^2} = c^2\left(\frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} \right)\qquad\text{for }(x,y)\in\Omega,
+    \frac{\partial^2 u}{\partial t^2} = c^2\frac{\partial^2 u}{\partial x^2}\qquad\text{for }(x)\in V,
 \end{gather}
 where $c$ denotes the propagation speed, and $\Omega$ denotes the interior of our spatial domain. For this equation, we consider homogenous Dirchlet boundary conditions
 \begin{gather}\label{eq:bcs}
-    u(t,x,y) = 0\qquad\text{for }(x,y)\in\partial\Omega,
+    u(t,x) = 0\qquad\text{for }x\in A,
 \end{gather}
 where $\partial\Omega$ denotes the exterior of our spatial domain. Finally, we also consider some initial condition
 \begin{gather}\label{eq:ic}

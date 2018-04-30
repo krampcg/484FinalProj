@@ -1,64 +1,89 @@
-% - Numerical Parameters -
-g = 9.81;
-% Velocity
-v = 1;
-% Spatial Parameters
-x0 = 0;
-xf = 2;
-N_x = 400;
-H = -ones(N_x,1); % 1D "sea floor" profile
-% Temporal Parameters
-t0 = 0;
-tf = 3;
-N_t = 601;
+clear all
 
-% Time Grid
-t = linspace(t0, tf, N_t);
-% Spacing
-dt = t(2)-t(1);
-
+% Simulation Parameters
+% Gravitational Constant - km/h^2
+g = 2.7240694444;
+% Spatial Range
+x0 = -40;
+xf = 132.5;
+% Spatial Discretization
+N_x = 5000;
 % Spatial Grid
-x = linspace(-xf, xf, N_x);
+x = linspace(x0, xf, N_x);
 % Spacing
 dx = x(2)-x(1);
+% Bezier Points of Seafloor Map
+P = [-1099, -465, -130, 1];
+% Bezier Seafloor Topology
+b_z = @(x) bezier(P, x/xf);
+% Reduced Seafloor Topology
+z = @(x) b_z(x)/1000;
+% For Plotting
+z_plot = z(x);
+% Sea-Floor Topology
+% z = @(x) 0.5/xf*x - 0.5;
+% Negative Image
+H = @(x) -z(x);
 
-% Wave Profile
-amp = 1;
-sigma = 0.1;
-eta = @(x,amp,sigma) amp*exp(-(x/sigma).^2); 
+% Max Wave-Speed Velocity
+v_max = g*max(H(x));
+
+% Courant-Freidrichs-Lowy Condition
+CFL = 1.0;
+
+% Temporal Parameters
+dt = CFL*dx/v_max;
+t0 = 0;
+tf = 60;
+% Temporal Discretization
+t = t0:dt:tf;
+N_t = length(t);
+
+% Initial, Shallow Wave Profile
+amp = 0.023;
+sigma = 10;
+sealevel = 0;
+x_peak = 0;
+eta = @(x,amp,sigma,x_peak) amp*exp(-((x-x_peak)/sigma).^2)+sealevel; 
 % eta = @(x,amp,x0,sigma) exp(-abs(x0-x)).*sin(x);
-etaprime = @(x,amp,sigma) -2*amp/sigma^2*x.*exp(-(x/sigma).^2);
+etaprime = @(x,amp,sigma,x_peak) -2*amp/sigma^2*(x-x_peak).*exp(-((x-x_peak)/sigma).^2);
 % etaprime = @(x,amp,x0,sigma) exp(-abs(x0-x)).*cos(x)-sin(x).*exp(-abs(x0-x));
 
 % Initial Condition
-u0_p = eta(x,amp,sigma);
-u0 = [etaprime(x,amp,sigma);linspace(0,0,N_x)];
+u0_p = eta(x,amp,sigma,x_peak);
+u0 = [etaprime(x,amp,sigma,x_peak);linspace(0,0,N_x)];
 
-% Exact Solution
-% u_exact = zeros(N_t,N_x);
-% u_exact(1,:) = u0;
-% for i = 1:N_t
-%     for j = 1:N_x
-%     	u_exact(i,j) = eta(x(j)-c*t(i),amp,x0,sigma);
-%     end
-% end
-% Iden(N_x,N_x) = 0;
-% Iden((N_x+1)*(0:N_x-1)+1) = 1;
-% v = 1;
+f = @(u,x) [0 -1; -g*H(x) 0]*[u(1); u(2)];
+% f = @(u) [0 -v; -v 0]*[u(1); u(2)];
 
-% f = @(u,j) [0 -1; -g*H(j) 0]*[u(1); u(2)];
-f = @(u) [0 -v; -v 0]*[u(1); u(2)];
+% Call Lax-Wendroff
+[u_lw_c,u_lw_p] = lax_wendroff_gen(dt,N_t,x,dx,N_x,u0,f,u0_p,v_max);
 
+figure
+mesh(x,t,squeeze(u_lw_c(:,:,1)))
+title('Lax-Wendroff Scheme, ALPHA')
+xlabel('x')
+ylabel('t')
+
+figure
+mesh(x,t,squeeze(u_lw_c(:,:,2)))
+title('Lax-Wendroff Scheme, GAMMA')
+xlabel('x')
+ylabel('t')
+
+figure
+mesh(x,t,squeeze(u_lw_p(:,:)))
+title('Lax-Wendroff Scheme, PRIMITIVE')
+xlabel('x')
+ylabel('t')
+
+save('u_lw_p.mat','u_lw_p','x','t','z_plot');
 
 % Call FDM Schemes
 % u_upwind = upwind(dt,N_t,dx,N_x,u0,c,a,b);
 % u_ftcs = ftcs(dt,N_t,dx,N_x,u0,c,a,b);
 % u_lf = lax_freidrichs(dt,N_t,dx,N_x,u0,c,a,b);
 % u_leap = leapfrog(dt,N_t,dx,N_x,u0,c,a,b,f);
-
-
-[u_lw_c,u_lw_p] = lax_wendroff_gen(dt,N_t,dx,N_x,u0,f,u0_p);
-
 % Get Max Nodal Error of Each Scheme
 % u_err_upwind = zeros(10,1);
 % u_err_ftcs = zeros(10,1);
@@ -152,22 +177,3 @@ f = @(u) [0 -v; -v 0]*[u(1); u(2)];
 % mesh(x,t,u_leap)
 % title('Leapfrog Scheme')
 % 
-figure
-mesh(x,t,squeeze(u_lw_c(:,:,1)))
-title('Lax-Wendroff Scheme, ALPHA')
-xlabel('x')
-ylabel('t')
-
-figure
-mesh(x,t,squeeze(u_lw_c(:,:,2)))
-title('Lax-Wendroff Scheme, GAMMA')
-xlabel('x')
-ylabel('t')
-
-figure
-mesh(x,t,squeeze(u_lw_p(:,:)))
-title('Lax-Wendroff Scheme, PRIMITIVE')
-xlabel('x')
-ylabel('t')
-
-save('u_lw_p.mat','u_lw_p','x','t');

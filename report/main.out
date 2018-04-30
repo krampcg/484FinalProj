@@ -12,8 +12,4 @@
 \BOOKMARK [1][-]{section.5}{Application: Fukushima Daiichi Nuclear Disaster}{}% 12
 \BOOKMARK [1][-]{section.6}{Interpolating Sea Floor: Fukushima Daiichi Nuclear Disaster}{}% 13
 \BOOKMARK [2][-]{subsection.6.1}{Implementation}{section.6}% 14
-\BOOKMARK [1][-]{appendix.A}{Derivation of The Shallow Water Equations}{}% 15
-\BOOKMARK [1][-]{appendix.B}{The Leapfrog Method}{}% 16
-\BOOKMARK [2][-]{subsection.B.1}{Stability}{appendix.B}% 17
-\BOOKMARK [2][-]{subsection.B.2}{Consistency}{appendix.B}% 18
-\BOOKMARK [2][-]{subsection.B.3}{Convergence}{appendix.B}% 19
+\BOOKMARK [1][-]{section.7}{Results }{}% 15

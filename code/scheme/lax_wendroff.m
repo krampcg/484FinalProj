@@ -3,11 +3,11 @@
 function [u,u_p] = lax_wendroff(dt,N_t,dx,N_x,u0,f,u0_p)
 
 % Solution Discretization
-% Republican Variables
+% Conservative Variables
 u = zeros(N_t,N_x,2);
 % Initial Condition
 u(1,:,:) = u0';
-% Plebian Variables
+% Primitive Variables
 u_p = zeros(N_t,N_x);
 % Initial Condition
 u_p(1,:) = u0_p;
@@ -26,16 +26,7 @@ for i=1:N_t-1
 %     end
     
     % loop over space
-    for j=2:N_x-1
-        % Half Steps w/ Lax-Friedrichs
-        % u_h_p = 0.5*(u(i,j+1,:) + u(i,j,:)) - r/2*(f(u(i,j+1,:))-f(u(i,j,:)));
-        % u_h_m = 0.5*(u(i,j,:) + u(i,j-1,:)) - r/2*(f(u(i,j,:))-f(u(i,j-1,:)));
-        % Evaluation of Flux at Half-Steps
-        % f_h_p = f(u_h_p);
-        % f_h_m = f(u_h_m);
-        % Full Step
-        % u(i+1,j,:) = squeeze(u(i,j,:)) - r*(f_h_p-f_h_m);
-        
+    for j=2:N_x-1 
         % Alpha Step
         u(i+1,j,1) = u(i,j,1) + r*...
             (0.5*(u(i,j+1,2)-u(i,j-1,2))+...
@@ -44,7 +35,7 @@ for i=1:N_t-1
         u(i+1,j,2) = u(i,j,2) + r*...
             (0.5*(u(i,j+1,1)-u(i,j-1,1))+...
             r*0.5*(u(i,j+1,2)-2*u(i,j,2)+u(i,j-1,2)));
-        % Plebian Variable
+        % Primitive Variable Step
         u_p(i+1,j) = u_p(i,j) + dt*u(i,j,2);
     end
     
