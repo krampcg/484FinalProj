@@ -11,36 +11,34 @@ P = [-1099, -465, -130, 1];
 % Bezier Seafloor Topology
 b_z = @(x) bezier(P, x/xf);
 % Reduced Seafloor Topology
-z = @(x) b_z(x)/1000;
+z = @(x) b_z(x);
 % Negative Image
 H = @(x) -z(x);
 
-% Temporal Discretization
-t0 = 0;
-dt = 2;
-tf = 1800;
-t = t0:dt:tf;
-N_t = length(t);
-
-% Courant-Freidrichs-Lowy Condition
-CFL = 1.0;
-
-% Max Wave-Speed Velocity
-v_max = g*max(H(linspace(x0,xf,10000)));
-
-% Match CFL Condition for Stability
-dx = dt*v_max/CFL;
-
 % Spatial Grid
-x = x0:dx:xf;
-% Spatial Discretization
-N_x = length(x);
+N_x = 1000;
+x = linspace(x0,xf,N_x);
+dx = x(2) - x(1);
+
 % For Plotting
 z_plot = z(x);
 
+% Max Wave-Speed Velocity
+v_max = g*max(H(x));
+
+% Courant-Freidrichs-Lowy Condition
+% CFL = 1.0;
+
+% Temporal Discretization
+t0 = 0;
+dt = dx/v_max;
+tf = 60;
+t = t0:dt:tf;
+N_t = length(t);
+
 % Initial, Shallow Wave Profile
 amp = 0.0046;
-sigma = 33;
+sigma = 10;
 sealevel = 0;
 x_peak = 0;
 eta = @(x,amp,sigma,x_peak) amp*exp(-((x-x_peak)/sigma).^2)+sealevel; 
