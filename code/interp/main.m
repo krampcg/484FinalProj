@@ -9,7 +9,7 @@ title('2D Surface of the Seafloor')
 xlabel('X')
 ylabel('Y')
 zlabel('H')
-surf(X, Y, Z);
+surf(X, Y, Z, 'EdgeColor', 'None', 'FaceColor', 'interp');
 hold off
 
 %% For reference, gradient
@@ -37,7 +37,7 @@ X = linspace(0, 100, 101);
 Y = linspace(100, 0, 101);
 X = flip(X);
 Y = flip(Y);
-Z = -Z;
+Z = Z;
 figure
 hold on
 set(gca, 'FontSize', 32)
@@ -45,7 +45,7 @@ title('2D Derivative wrt X Surface of the Seafloor')
 xlabel('X')
 ylabel('Y')
 zlabel('H')
-surf(Y, X, Z);
+surf(Y, X, Z, 'EdgeColor', 'None', 'FaceColor', 'interp');
 hold off
 
 %% Load Precomputed 2D Derivative Seafloor of Y
@@ -54,7 +54,7 @@ X = linspace(0, 100, 101);
 Y = linspace(100, 0, 101);
 X = flip(X);
 Y = flip(Y);
-Z = -Z;
+Z = Z;
 figure
 hold on
 set(gca, 'FontSize', 32)
@@ -62,7 +62,7 @@ title('2D Derivative wrt Y Surface of the Seafloor')
 xlabel('X')
 ylabel('Y')
 zlabel('H')
-surf(Y, X, Z);
+surf(Y, X, Z, 'EdgeColor', 'None', 'FaceColor', 'interp');
 hold off
 
 %% Load 1D Seafloor
