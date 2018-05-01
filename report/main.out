@@ -5,11 +5,9 @@
 \BOOKMARK [2][-]{subsection.3.2}{The Conservative Form of The Shallow-Water Equations}{section.3}% 5
 \BOOKMARK [1][-]{section.4}{Numerical Methodolgy}{}% 6
 \BOOKMARK [2][-]{subsection.4.1}{A Test Problem}{section.4}% 7
-\BOOKMARK [2][-]{subsection.4.2}{Explicit Schemes}{section.4}% 8
-\BOOKMARK [3][-]{subsubsection.4.2.1}{The Upwind Scheme}{subsection.4.2}% 9
-\BOOKMARK [2][-]{subsection.4.3}{Implicit Schemes}{section.4}% 10
-\BOOKMARK [2][-]{subsection.4.4}{Iterative Schemes}{section.4}% 11
-\BOOKMARK [1][-]{section.5}{Application: Fukushima Daiichi Nuclear Disaster}{}% 12
-\BOOKMARK [1][-]{section.6}{Interpolating Sea Floor: Fukushima Daiichi Nuclear Disaster}{}% 13
-\BOOKMARK [2][-]{subsection.6.1}{Implementation}{section.6}% 14
-\BOOKMARK [1][-]{section.7}{Results }{}% 15
+\BOOKMARK [2][-]{subsection.4.2}{The Lax-Wendroff Scheme}{section.4}% 8
+\BOOKMARK [3][-]{subsubsection.4.2.1}{Boundary Conditions}{subsection.4.2}% 9
+\BOOKMARK [1][-]{section.5}{Application: Fukushima Daiichi Nuclear Disaster}{}% 10
+\BOOKMARK [1][-]{section.6}{Interpolating Sea Floor: Fukushima Daiichi Nuclear Disaster}{}% 11
+\BOOKMARK [2][-]{subsection.6.1}{Implementation}{section.6}% 12
+\BOOKMARK [1][-]{section.7}{Results }{}% 13
