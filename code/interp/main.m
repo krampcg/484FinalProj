@@ -66,15 +66,16 @@ surf(Y, X, Z, 'EdgeColor', 'None', 'FaceColor', 'interp');
 hold off
 
 %% Load 1D Seafloor
-X = linspace(0, 100, 101);
+X = linspace(132, 0, 101);
 Y = dlmread('bezCurve.dat');
-Y = flip(Y);
+%Y = flip(Y);
+X = flip(X);
 figure
 hold on
 set(gca, 'FontSize', 32)
 title('Bezier Curve of the Seafloor from Epicenter to Power Plant')
-xlabel('X');
-ylabel('H');
+xlabel('Distance (km)');
+ylabel('Depth (m)');
 plot(X, Y, 'LineWidth', 3);
 hold off
 
