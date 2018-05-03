@@ -19,13 +19,47 @@ The equation \ref{eq:shallow}  that we plan to numerically solve is very similar
 
 \noindent However, we first state \label{eq:wave} in \noindent{conservative form}.
 
-\subsection{Explicit Schemes}
-\subsubsection{The Upwind Scheme}
+\subsection{The Lax-Wendroff Scheme}
 
+The Lax-Wendroff scheme \cite{rezzolla} is a combination of the Lax-Friedrichs scheme and the leapfrog scheme. First, the half-steps must be computed as below:
 
-The shallow water equation~\ref{eq:shallow} is a linear, hyperbolic partial differential equation suitable for a two-dimensional discretization in space, numerically solvable via the Leapfrog scheme as presented in chapter 4 of Rezzolla's \textit{Lecture Notes on Numerical Methods for the Solution of Hyperbolic Partial Differential Equations} \cite{rezzolla}: \colorbox{red}{Statement and Scheme Later}.
-\subsection{Implicit Schemes}
+\begin{gather}
+	u^{n+1/2}_{j\pm1/2} = \frac{1}{2}(u^{n}_{j}+u^{n}_{j\pm1}) \mp \frac{\alpha}{2}(u^{n}_{j\pm1}-u^{n}_j).
+\end{gather}
 
-\subsection{Iterative Schemes}
+\noindent These are then used in the computation of a leapfrog half-step:
+
+\begin{gather}
+	u^{n+1}_{j} = u^{n}_{j}-\alpha(u^{n+1/2}_{j+1/2}-u^{n+1/2}_{j-1/2}).
+\end{gather}
+
+\noindent Substitution then yields the numerical scheme as it was implemented in our program:
+
+\begin{gather}
+	u^{n+1}_{j} = u^n_j - \frac{\alpha}{2}(u^{n}_{j+1}-u^n_{j-1}) + \frac{\alpha^2}{2}(u^{n}_{j+1}-2u^n_j+u^n_{j-1}).
+\end{gather}
+
+\subsubsection{Boundary Conditions}
+
+Our first implementation of Lax-Wendroff applied to the wave equation implemented Dirichlet boundary conditions, with the solution at the endpoints being set to $0$. This caused numerical instability in the solution which worsened as the number of time steps used in the discretization increased.
+
+Our solution to this was to implement Sommerfeld boundary conditions (also called radiative boundary conditions). These boundary conditions allow the wave to freely move out of our system when it reaches the boundary by applying a numerical scheme for basic advection. The following numerical scheme was implemented to allow the waves to advect from the system:
+
+\begin{gather}
+	u^{n+1}_{j+1} = u^n_j - u^{n+1}_jQ+u^n_{j+1}Q	
+\end{gather}
+
+\noindent for the outer (positive x) edge and 
+
+\begin{gather}
+	u^{n+1}_j = u^n_{j+1}-u^{n+1}_{j+1}Q+u^n_jQ
+\end{gather}
+
+\noindent for the inner (negative x) edge, where 
+
+\begin{gather}
+	Q = \frac{(1-\alpha)}{(1+\alpha)}.
+\end{gather}
+
 
 \end{document}
