@@ -16,7 +16,7 @@ z = @(x) b_z(x);
 H = @(x) -z(x);
 
 % Spatial Grid
-N_x = 1000;
+N_x = 600;
 x = linspace(x0,xf,N_x);
 dx = x(2) - x(1);
 
@@ -32,7 +32,7 @@ v_max = g*max(H(x));
 % Temporal Discretization
 t0 = 0;
 dt = dx/v_max;
-tf = 60;
+tf = 120;
 t = t0:dt:tf;
 N_t = length(t);
 

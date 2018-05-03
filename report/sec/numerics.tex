@@ -17,7 +17,48 @@ where $\partial\Omega$ denotes the exterior of our spatial domain. Finally, we a
 \end{gather}
 The equation \ref{eq:shallow}  that we plan to numerically solve is very similar to this equation, as both are linear second-order hyperbolic partial differential equations. Further, we will be using the same boundary and initial conditions. Because of this, we select the scheme that we find to be optimal in terms of both time and accuracy.
 
-\noindent However, we first state \label{eq:wave} in \noindent{conservative form}.
+\noindent However, we first state \label{eq:wave} in \noindent{conservative form}. To do this we define variables $\alpha$ and $\gamma$ such that:
+\begin{gather*}
+    \left.
+    \begin{aligned}
+        \gamma &= \frac{\partial u}{\partial t},\\
+        \alpha &= c\frac{\partial u}{\partial x}.
+    \end{aligned}
+    \right\}
+    \Rightarrow
+    \mathbf{U} = \begin{bmatrix} \gamma \\ \alpha\end{bmatrix}
+\end{gather*}
+Now, we take derivatives with respect to time obtain a coupled system of equations:
+\begin{gather*}
+    \begin{aligned}
+        \frac{\partial \gamma}{\partial t} &= \frac{\partial^2 u}{\partial t^2} = \frac{\partial}{\partial x}\left( c^2 \frac{\partial u}{\partial x}\right) = c^2 \frac{\partial \alpha}{\partial x}\\
+        \frac{\partial \alpha}{\partial t} &= \frac{\partial^2 u}{\partial t \partial x} = \frac{\partial^2 u}{\partial x \partial t} = \frac{\partial \gamma}{\partial x}
+    \end{aligned}
+\end{gather*}
+We may write this in matrix form by:
+\begin{gather*}
+\frac{\partial }{\partial t}
+\begin{bmatrix}
+\alpha \\ \gamma
+\end{bmatrix}
++
+\begin{bmatrix}
+\partial_x & 0\\
+0 & \partial_x 
+\end{bmatrix}
+\left(
+\begin{bmatrix}
+0 & -c\\
+-c & 0
+\end{bmatrix}
+\begin{bmatrix}
+\alpha \\
+\gamma
+\end{bmatrix}
+\right)
+=
+\mathbf{0},
+\end{gather*}
 
 \subsection{The Lax-Wendroff Scheme}
 
