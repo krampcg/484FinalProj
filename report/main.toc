@@ -5,9 +5,12 @@
 \contentsline {subsection}{\numberline {3.2}The Conservative Form of The Shallow-Water Equations}{5}{subsection.3.2}
 \contentsline {section}{\numberline {4}Numerical Methodolgy}{6}{section.4}
 \contentsline {subsection}{\numberline {4.1}A Test Problem}{6}{subsection.4.1}
+\contentsline {subsubsection}{\numberline {4.1.1}Conservative Form of Test Problem}{6}{subsubsection.4.1.1}
 \contentsline {subsection}{\numberline {4.2}The Lax-Wendroff Scheme}{7}{subsection.4.2}
-\contentsline {subsubsection}{\numberline {4.2.1}Boundary Conditions}{7}{subsubsection.4.2.1}
-\contentsline {section}{\numberline {5}Application: Fukushima Daiichi Nuclear Disaster}{8}{section.5}
-\contentsline {section}{\numberline {6}Interpolating Sea Floor: Fukushima Daiichi Nuclear Disaster}{8}{section.6}
-\contentsline {subsection}{\numberline {6.1}Implementation}{8}{subsection.6.1}
-\contentsline {section}{\numberline {7}Results }{12}{section.7}
+\contentsline {subsection}{\numberline {4.3}Stability of Lax-Wendroff}{8}{subsection.4.3}
+\contentsline {subsection}{\numberline {4.4}Boundary Conditions}{8}{subsection.4.4}
+\contentsline {subsection}{\numberline {4.5}Test Problem Results}{9}{subsection.4.5}
+\contentsline {section}{\numberline {5}Application: Fukushima Daiichi Nuclear Disaster}{11}{section.5}
+\contentsline {section}{\numberline {6}Interpolating Sea Floor: Fukushima Daiichi Nuclear Disaster}{11}{section.6}
+\contentsline {subsection}{\numberline {6.1}Implementation}{11}{subsection.6.1}
+\contentsline {section}{\numberline {7}Results }{15}{section.7}

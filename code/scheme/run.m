@@ -21,7 +21,7 @@ x = linspace(x0,xf,N_x);
 dx = x(2) - x(1);
 
 % For Plotting
-z_plot = z(x);
+z_plot = z(x);-
 
 % Max Wave-Speed Velocity
 v_max = g*max(H(x));

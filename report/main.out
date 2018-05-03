@@ -5,9 +5,12 @@
 \BOOKMARK [2][-]{subsection.3.2}{The Conservative Form of The Shallow-Water Equations}{section.3}% 5
 \BOOKMARK [1][-]{section.4}{Numerical Methodolgy}{}% 6
 \BOOKMARK [2][-]{subsection.4.1}{A Test Problem}{section.4}% 7
-\BOOKMARK [2][-]{subsection.4.2}{The Lax-Wendroff Scheme}{section.4}% 8
-\BOOKMARK [3][-]{subsubsection.4.2.1}{Boundary Conditions}{subsection.4.2}% 9
-\BOOKMARK [1][-]{section.5}{Application: Fukushima Daiichi Nuclear Disaster}{}% 10
-\BOOKMARK [1][-]{section.6}{Interpolating Sea Floor: Fukushima Daiichi Nuclear Disaster}{}% 11
-\BOOKMARK [2][-]{subsection.6.1}{Implementation}{section.6}% 12
-\BOOKMARK [1][-]{section.7}{Results }{}% 13
+\BOOKMARK [3][-]{subsubsection.4.1.1}{Conservative Form of Test Problem}{subsection.4.1}% 8
+\BOOKMARK [2][-]{subsection.4.2}{The Lax-Wendroff Scheme}{section.4}% 9
+\BOOKMARK [2][-]{subsection.4.3}{Stability of Lax-Wendroff}{section.4}% 10
+\BOOKMARK [2][-]{subsection.4.4}{Boundary Conditions}{section.4}% 11
+\BOOKMARK [2][-]{subsection.4.5}{Test Problem Results}{section.4}% 12
+\BOOKMARK [1][-]{section.5}{Application: Fukushima Daiichi Nuclear Disaster}{}% 13
+\BOOKMARK [1][-]{section.6}{Interpolating Sea Floor: Fukushima Daiichi Nuclear Disaster}{}% 14
+\BOOKMARK [2][-]{subsection.6.1}{Implementation}{section.6}% 15
+\BOOKMARK [1][-]{section.7}{Results }{}% 16
