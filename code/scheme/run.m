@@ -65,7 +65,7 @@ save('u_lw_p.mat','u_lw_p','x','t','z_plot');
 % u_leap = leapfrog(dt,N_t,dx,N_x,u0,c,a,b,f);
 % Get Max Nodal Error of Each Scheme
 % u_err_upwind = zeros(10,1);
-% u_err_ftcs = zeros(10,1);
+% u_err_ftcs = zer/u/wy/iq/ecoxlauf/math484/484FinalProj/code/schemeos(10,1);
 % u_err_lf = zeros(10,1);
 % u_err_leap = zeros(10,1);
 % u_err_lw = zeros(10,1);

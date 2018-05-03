@@ -36,7 +36,7 @@ im = frame2im(frame);
 imwrite(imind,cm,filename,'gif', 'Loopcount',inf,'DelayTime',0.0005)
 
 % Rest of the Plots
-for i=2:5:6337
+for i=2:5:6500
     % Delete Plots
     delete(data_plot_1);
     % delete(data_plot_2);
