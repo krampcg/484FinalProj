@@ -76,6 +76,16 @@
 \section{Results }
 \subfile{sec/results}
 
+%CONCLUSION
+\section{Conclusion}
+\noindent The shallow-water wave equation provides a strong starting point for analyzing the propagation and growth of waves over a known sea floor (or any surface supporting a body of water). However, in order to achieve this desired result we had to make several assumptions. The perturbation that we use to represent the initial state of the tsunami is not representative of nature. In nature, we would expect a pressure wave emanating radially from the epicenter to propagate evenly in all directions. This would lead to a much shorter initial wave (which may still be Gaussian, just with a larger sigma parameter), and the water beneath the surface wave would also have behavior significant to the generation of the tsunami. Essentially, a more accurate model would account for a pressure wave beginning at the epicenter and expanding evenly in all directions, showing more behavior than just at the surface.\\
+
+\noindent Despite the limitations of the model as-is, we achieved our goal of numerically solving the shallow-water wave equation in one dimension given the shape of the sea floor below. We were also able to apply a new sort of boundary condition, a radiation condition, which allowed the wave to leave the system without reflecting back in. This worked much better than our initial attempt of using Dirichlet boundary conditions, setting the height of the wave to $0$. This first attempt introduced significant numerical instability.\\
+
+\noindent Going forward, we would like to see our method implemented in 2D. We finished creating the smooth 2D sea floor and finding the $x$ and $y$ derivatives, but did not implement the Lax-Wendroff numerical scheme in 2D. Additionally, we would like to take steps to make this simulation closer to what would be observed in nature--perhaps starting the simulation before the earthquake occurs, having a model that can handle a rapid shift of the sea floor. An integral formulation of the equation may be able to handle such discontinuities. \\
+
+\noindent Our na\"ive approach to the generation of tsunamis may not have been exactly representative of nature, but the growing height of the wave as it approached the shore is an accurate representation of how the sea floor affects approaching waves. Adjusting the parameters and initial perturbation may facilitate more accurate simulations, allowing for rough approximations to tsunamis all over the world, provided the sea floor elevation data is readily available.
+
 \begin{thebibliography}{1}
 \bibitem{zirker}
 Jack B Zirker.
